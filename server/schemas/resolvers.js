@@ -35,7 +35,7 @@ const resolvers = {
 
       return { token, user };
     },
-    saveBook: async (parent, { userId, authors, description, bookId, image, link, title }, context) => {
+    saveBook: async (parent, { authors, description, bookId, image, link, title }, context) => {
 
       const book = {
         authors,
