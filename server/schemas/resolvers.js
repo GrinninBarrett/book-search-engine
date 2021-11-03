@@ -4,52 +4,48 @@ const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
-    users: async () => {
-      return User.find().populate("books");
-    },
-    user: async (parent, { username }) => {
-      return User.findOne({ username }).populate("books");
-    },
+    me: async (parent, args, context) => {
+      if (context.user) {
+        const userData = await User.findOne({ _id: context.user._id })
+          .populate("books");
+        return userData;
+      }
+      throw new AuthenticationError("Not logged in");
+   },
   },
 
   Mutation: {
-    addUser: async (parent, { username, email, password }) => {
-      const user = await User.create({ username, email, password });
-      const token = signToken(user);
-      return { token, user };
+    addUser: async (parent, args) => {
+      try {
+        const user = await User.create(args);
+        const token = signToken(user);
+        return { token, user };
+      } catch (err) {
+        console.log(err);
+      }
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 
       if (!user) {
-        throw new AuthenticationError("No user found with this email address");
+        throw new AuthenticationError("Incorrect email or password");
       }
 
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
-        throw new AuthenticationError("Incorrect credentials");
+        throw new AuthenticationError("Incorrect email or password");
       }
 
       const token = signToken(user);
 
       return { token, user };
     },
-    saveBook: async (parent, { authors, description, bookId, image, link, title }, context) => {
-
-      const book = {
-        authors,
-        description,
-        bookId,
-        image,
-        link,
-        title,
-      };
-
+    saveBook: async (parent, args, context) => {
       if (context.user) {
-        return User.findOneAndUpdate(
+        return await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $addToSet: { savedBooks: book } },
+          { $addToSet: { savedBooks: args.input } },
           {
             new: true,
             runValidators: true,
