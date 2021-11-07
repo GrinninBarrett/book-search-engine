@@ -133,6 +133,9 @@ const SearchBooks = () => {
                         : 'Save this Book!'}
                     </Button>
                   )}
+                  {!Auth.loggedIn() && (
+                    <a href={book.link}>Click to view "{book.title}" on Google Books</a>
+                  )}
                 </Card.Body>
               </Card>
             );
