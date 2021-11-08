@@ -48,6 +48,7 @@ const SearchBooks = () => {
         title: book.volumeInfo.title,
         description: book.volumeInfo.description,
         image: book.volumeInfo.imageLinks?.thumbnail || '',
+        link: book.volumeInfo.infoLink
       }));
 
       setSearchedBooks(bookData);
@@ -133,9 +134,7 @@ const SearchBooks = () => {
                         : 'Save this Book!'}
                     </Button>
                   )}
-                  {!Auth.loggedIn() && (
-                    <a href={book.link}>Click to view "{book.title}" on Google Books</a>
-                  )}
+                  <a href={`${book.link}`} rel="noopener noreferrer" target="_blank">Click to view "{book.title}" on Google Books</a>
                 </Card.Body>
               </Card>
             );
