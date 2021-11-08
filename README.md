@@ -1,10 +1,10 @@
 # 📖 Book Search Engine
 
-<!-- TODO: Add description of application -->
+This application uses an Apollo server with GraphQL queries and mutations to allow users to create an account, search for books, and save books they are interested in to their dashboard for future viewing. This was built from starter code, refactoring a fully-functioning REST API to use Apollo/GraphQL. The front end is built with React, and the application is deployed with Heroku.
 
 ## Link to Deployed Site
 
-<!-- TODO: Add link to deployed application -->
+[Book Search Engine](https://glacial-stream-35332.herokuapp.com/)
 
 ## Table of Contents
   * [Technologies](#technologies)
@@ -29,17 +29,17 @@
 
 #### Application Demo
 
-<!-- TODO: Add demo of application -->
+![App demo](./client/public/demo.gif)
 
 
 ## Challenges
 
-<!-- TODO: Add challenges as they arise -->
+* This application was more challenging than I expected. While all of the fundamentals of GraphQL are relatively simple, taking a fully-functioning REST API and converting it to use Apollo/GraphQL was a hefty task. Getting the server and client to communicate correctly with corresponding queries and mutations took longer than it should have. However, now that I have done it, I think the next time I need to set up an Apollo server and use GraphQL queries and mutations, it will be easier.
 
 
 ## Future Development
 
-<!-- TODO: Add ideas for future development as they arise -->
+* In the future, I would like to improve the look of the site. Specifically, I would change the card styling so as to have uniform sizing between cards, enabling scrollable card content, for easier navigation through search results.
 
 
 ## Contact
